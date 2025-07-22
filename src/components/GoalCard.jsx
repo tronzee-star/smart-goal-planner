@@ -1,31 +1,37 @@
-import React from 'react';
+import React from "react";
 
 const GoalCard = ({ goal, onDelete, onDeposit }) => {
-  const progress = Math.min(100, (goal.savedAmount / goal.targetAmount) * 100).toFixed(0);
-  const remaining = goal.targetAmount - goal.savedAmount;
-  const deadline = new Date(goal.deadline);
-  const daysLeft = Math.ceil((deadline - new Date()) / (1000 * 60 * 60 * 24));
-  const status = goal.savedAmount >= goal.targetAmount
-    ? '✅ Complete'
-    : daysLeft < 0
-    ? '❌ Overdue'
-    : daysLeft <= 30
-    ? '⚠️ Warning'
-    : '⏳ In Progress';
+  const { name, category, targetAmount, savedAmount, deadline } = goal;
+
+  const progress = Math.min(100, (savedAmount / targetAmount) * 100).toFixed(0);
+  const isComplete = savedAmount >= targetAmount;
+  const daysLeft = Math.ceil((new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24));
+
+  let status = "In Progress";
+  if (isComplete) status = "✅ Complete";
+  else if (daysLeft < 0) status = "❌ Overdue";
+  else if (daysLeft <= 30) status = "⚠️ Deadline Soon";
 
   return (
     <div className="goal-card">
-      <h3>{goal.name}</h3>
-      <p>Category: {goal.category}</p>
-      <p>Target: ${goal.targetAmount}</p>
-      <p>Saved: ${goal.savedAmount}</p>
-      <p>Remaining: ${remaining}</p>
-      <p>Status: {status}</p>
-      <div className="progress-bar">
-        <div style={{ width: `${progress}%` }}>{progress}%</div>
+      <h3>{name}</h3>
+      <p><strong>Category:</strong> {category}</p>
+      <p><strong>Target:</strong> ${targetAmount}</p>
+      <p><strong>Saved:</strong> ${savedAmount}</p>
+      <p><strong>Deadline:</strong> {deadline}</p>
+      <p><strong>Status:</strong> {status}</p>
+      <div style={{ background: "#eee", height: "10px", borderRadius: "5px", marginBottom: "8px" }}>
+        <div
+          style={{
+            width: `${progress}%`,
+            height: "100%",
+            backgroundColor: "#4caf50",
+            borderRadius: "5px",
+          }}
+        />
       </div>
-      <button onClick={() => onDelete(goal.id)}>Delete</button>
       <button onClick={() => onDeposit(goal)}>Deposit</button>
+      <button onClick={() => onDelete(goal.id)}>Delete</button>
     </div>
   );
 };
