@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
 
 const Overview = ({ goals }) => {
   const totalGoals = goals.length;
-  const totalSaved = goals.reduce((sum, g) => sum + g.savedAmount, 0);
+  const totalSaved = goals.reduce((acc, g) => acc + g.savedAmount, 0);
   const completedGoals = goals.filter(g => g.savedAmount >= g.targetAmount).length;
 
   return (
     <div className="overview">
-      <p>Total Goals: {totalGoals}</p>
-      <p>Total Saved: ${totalSaved}</p>
-      <p>Completed Goals: {completedGoals}</p>
+      <h2>Overview</h2>
+      <p><strong>Total Goals:</strong> {totalGoals}</p>
+      <p><strong>Total Saved:</strong> ${totalSaved.toLocaleString()}</p>
+      <p><strong>Goals Completed:</strong> {completedGoals}</p>
     </div>
   );
 };
