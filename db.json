@@ -58,7 +58,7 @@
       "id": "7",
       "name": "Holiday Gifts",
       "targetAmount": 1000,
-      "savedAmount": 200,
+      "savedAmount": 700,
       "category": "Shopping",
       "deadline": "2024-08-10",
       "createdAt": "2024-07-01"
@@ -76,7 +76,7 @@
       "id": "9",
       "name": "Retirement Savings",
       "targetAmount": 100000,
-      "savedAmount": 15000,
+      "savedAmount": 15200,
       "category": "Retirement",
       "deadline": "2035-01-01",
       "createdAt": "2023-01-01"
